@@ -16,29 +16,29 @@ import huy.my_books.mode.CatelogyBooks;
  *
  */
 @SpringBootApplication
-public class App 
-{
-    public static void main( String[] args )
-    {
-        ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml");
-        
-        CatelogyDAO catelogyDAO = (CatelogyDAO)context.getBean("catelogyDAO");
-//        CatelogyBooks catelogyBooks = catelogyDAO.findCatelogyName(2);
-        
-//        CatelogyBooks customer = new CatelogyBooks(5,"Trinh Thám");
-//        catelogyDAO.insert(customer);
-        
-        List<CatelogyBooks> list = catelogyDAO.selectLitsCatelogy();
-        
-        for (CatelogyBooks item : list) {
+public class App {
+	public static void main(String[] args) {
+		ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml");
+
+		CatelogyDAO catelogyDAO = (CatelogyDAO) context.getBean("catelogyDAO");
+		// CatelogyBooks catelogyBooks = catelogyDAO.findCatelogyName(2);
+
+		// //call insert catelogy
+		// catelogyDAO.insert("aaaaa");
+
+		// //call delete row
+		// catelogyDAO.deleteCatelogy(9);
+
+		// // call update row
+		// catelogyDAO.updateNameCatelogy(9, "bbbbbb");
+
+		List<CatelogyBooks> list = catelogyDAO.selectLitsCatelogy();
+
+		for (CatelogyBooks item : list) {
 			System.out.println(item.getNameCatelogy());
 		}
-        
-//        System.out.println("Demo: "+catelogyBooks.getNameCatelogy());    	
-    
-//        SpringApplication.run(Application.class, args);
-        
-        SpringApplication.run(App.class, args);
 
-    }
+		SpringApplication.run(App.class, args);
+
+	}
 }

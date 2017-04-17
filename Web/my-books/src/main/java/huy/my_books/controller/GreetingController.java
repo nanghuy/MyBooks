@@ -60,8 +60,13 @@ public class GreetingController {
 
 		String id = requestParams.get("id");
 		String content = requestParams.get("content");
-		Greeting pageList = new Greeting(Integer.parseInt(id)+100, content);
+		Greeting pageList = new Greeting(Integer.parseInt(id) + 100, content);
 		return mapper.writeValueAsString(pageList);
 	}
 
+	@RequestMapping(value = "greeting4", method = RequestMethod.PUT)
+	public String greeting4(@RequestParam Map<String, String> requestParams) throws Exception {
+
+		return null;
+	}
 }

@@ -19,14 +19,18 @@ public class JdbcCatelogyDAO extends JdbcDaoSupport implements CatelogyDAO {
 
 	private DataSource dataSource;
 
-	// public void setDataSource(DataSource dataSource) {
-	// this.dataSource = dataSource;
-	// }
+	public void insert(String catelogyBooks) {
 
-	public void insert(CatelogyBooks catelogyBooks) {
-		String sql = "INSERT INTO CATELOGY " + "(idCATELOGY, nameCATELOGY) VALUES (?, ?)";
+		try {
+			String sqlCheckExistCatelogy = "SELECT idCATELOGY FROM CATELOGY WHERE nameCATELOGY = ?";
+			String idCatelogy = (String) getJdbcTemplate().queryForObject(sqlCheckExistCatelogy,
+					new Object[] { catelogyBooks }, String.class);
+			System.out.println("ID CATELOGY: " + idCatelogy);
+		} catch (Exception e) {
+			String sql = "INSERT INTO CATELOGY " + "(nameCATELOGY) VALUES (?)";
+			getJdbcTemplate().update(sql, new Object[] { catelogyBooks });
 
-		getJdbcTemplate().update(sql, new Object[] { catelogyBooks.getIdBooks(), catelogyBooks.getNameCatelogy() });
+		}
 
 	}
 
@@ -62,8 +66,13 @@ public class JdbcCatelogyDAO extends JdbcDaoSupport implements CatelogyDAO {
 	}
 
 	public boolean deleteCatelogy(int cateID) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			String sqlDelete = "DELETE FROM CATELOGY WHERE idCATELOGY = ?";
+			getJdbcTemplate().update(sqlDelete, new Object[] { cateID });
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -84,9 +93,14 @@ public class JdbcCatelogyDAO extends JdbcDaoSupport implements CatelogyDAO {
 		return listCate;
 	}
 
-	public boolean updateNameCatelogy() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateNameCatelogy(int idUpdate, String nameCatelory) {
+		try {
+			String sqlDelete = "UPDATE CATELOGY SET nameCATELOGY = ? WHERE idCATELOGY = ?";
+			getJdbcTemplate().update(sqlDelete, new Object[] { nameCatelory, idUpdate });
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 }
